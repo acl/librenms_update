@@ -4,7 +4,7 @@
 ########################################################
 #!/bin/sh
 
- nmsversion="1.50.1"
+ nmsversion="1.56"
  zip_file="$nmsversion.zip"
 
  zip_files_url=https://github.com/librenms/librenms/archive/$zip_file
@@ -48,7 +48,7 @@
 
  service httpd start
  service mysqld start
- /opt/librenms/scripts/composer_wrapper.php install --no-dev
+ su librenms -c 'COMPOSER_HOME="/opt/librenms" php /opt/librenms/scripts/composer_wrapper.php install --no-dev'
  chown -R librenms:librenms /opt/librenms
  /opt/librenms/daily.sh no-code-update
  setfacl -d -m g::rwx /opt/librenms/rrd /opt/librenms/logs /opt/librenms/bootstrap/cache/ /opt/librenms/storage/
