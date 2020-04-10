@@ -48,8 +48,8 @@
 
  service httpd start
  service mysqld start
- su librenms -c 'COMPOSER_HOME="/opt/librenms" php /opt/librenms/scripts/composer_wrapper.php install --no-dev'
  chown -R librenms:librenms /opt/librenms
+ su librenms -c 'COMPOSER_HOME="/opt/librenms" php /opt/librenms/scripts/composer_wrapper.php install --no-dev'
  /opt/librenms/daily.sh no-code-update
  setfacl -d -m g::rwx /opt/librenms/rrd /opt/librenms/logs /opt/librenms/bootstrap/cache/ /opt/librenms/storage/
  chmod -R ug=rwX /opt/librenms/rrd /opt/librenms/logs /opt/librenms/bootstrap/cache/ /opt/librenms/storage/
