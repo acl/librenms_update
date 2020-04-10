@@ -4,7 +4,7 @@
 ########################################################
 #!/bin/sh
 
- nmsversion="1.56"
+ nmsversion="1.60"
  zip_file="$nmsversion.zip"
 
  zip_files_url=https://github.com/librenms/librenms/archive/$zip_file
