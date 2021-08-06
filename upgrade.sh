@@ -3,7 +3,7 @@
 # -Abel
 ########################################################
 #!/bin/sh
- nmsversion="1.66"
+ nmsversion="1.70.1"
  zip_file="$nmsversion.zip"
  zip_files_url=https://github.com/librenms/librenms/archive/$zip_file
  wget_err="/tmp/wget_err.log"
@@ -45,6 +45,11 @@
  chmod ug+rw /opt/librenms/logs
  cp /opt/librenms/librenms.nonroot.cron /etc/cron.d/librenms
  cp /opt/librenms/misc/librenms.logrotate /etc/logrotate.d/librenms
+ if [ -f /opt/librenms/misc/lnms-completion.bash ]; then
+    echo "creating lnms links."
+    ln -s /opt/librenms/lnms /usr/local/bin/lnms
+    cp /opt/librenms/misc/lnms-completion.bash /etc/bash_completion.d/
+ fi
  service httpd start
  service mysqld start
  chown -R librenms:librenms /opt/librenms
