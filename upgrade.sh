@@ -3,7 +3,7 @@
 # -Abel
 ########################################################
 #!/bin/sh
-nmsversion="21.12.1"
+nmsversion="22.6.0"
 zip_file="$nmsversion.zip"
 zip_files_url=https://github.com/librenms/librenms/archive/$zip_file
 wget_err="/tmp/wget_err.log"
@@ -21,15 +21,18 @@ else
     service mysqld stop
     rpm -qa | grep -qw php-mbstring || yum install -y php-mbstring
     rpm -qa | grep -qw python3-devel || yum install -y python3-devel
+    rpm -qa | grep -qw php-fpm ||  yum install -y php-fpm
+
     if [ -d /opt/librenms-old ]; then
         echo "Old NMS directory found. Removing .."
         rm -rf /opt/librenms-old
     fi
     mv /opt/librenms /opt/librenms-old
     mv /tmp/librenms-$nmsversion /opt/librenms/
-    /bin/cp -Ruf /opt/librenms-old/rrd /opt/librenms/
+    cp -Ruf /opt/librenms-old/rrd /opt/librenms/
     cp /opt/librenms-old/config.php /opt/librenms/
-    /bin/cp -Ruf /opt/librenms-old/logs /opt/librenms/
+    cp -Ruf /opt/librenms-old/logs /opt/librenms/
+    cp -uf /opt/librenms-old/.env /opt/librenms/.env
     if [ -d /opt/librenms-old/.composer ]; then
         echo ".composer directory found, migrating to new location."
         /bin/cp -Ruf /opt/librenms-old/.composer /opt/librenms/
